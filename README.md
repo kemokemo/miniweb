@@ -1,6 +1,6 @@
 # miniweb
 
-A simplest web service to serve static files. :tada:
+Tiny web service to serve files. :tada:
 
 ## Usage
 
