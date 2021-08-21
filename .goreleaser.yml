@@ -1,0 +1,61 @@
+project_name: miniweb
+env:
+  - GO111MODULE=on
+before:
+  hooks:
+    - go mod download
+builds:
+  - main: .
+    binary: miniweb
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+      - freebsd
+    goarch:
+      - 386
+      - amd64
+      - arm64
+changelog:
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+archives:
+  - name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE
+release:
+  prerelease: auto
+brews:
+  - tap:
+      owner: kemokemo
+      name: homebrew-tap
+    homepage: "https://github.com/kemokemo/miniweb"
+    description: "Tiny web service to serve files."
+    install: |
+      bin.install "miniweb"
+scoop:
+  bucket:
+    owner: kemokemo
+    name: scoop-bucket
+  homepage: "https://github.com/kemokemo/miniweb"
+  description: "Tiny web service to serve files."
+  license: MIT
