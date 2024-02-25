@@ -9,22 +9,9 @@ jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.16.6
-      - name: Install dependencies
-        run: |
-          go version
-          GO111MODULE=off go get -u golang.org/x/lint/golint
-      - name: Lint and check
-        run: |
-          golint ./...
-          go vet ./...
+      - name: Build and check
+        uses: kemokemo/miniweb/.github/workflows/build-check.yml@main
+        
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
