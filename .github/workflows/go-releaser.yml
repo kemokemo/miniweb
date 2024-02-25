@@ -6,12 +6,11 @@ on:
       - "*"
 
 jobs:
+  build-and-check:
+    uses: kemokemo/miniweb/.github/workflows/build-check.yml@main
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-      - name: Build and check
-        uses: kemokemo/miniweb/.github/workflows/build-check.yml@main
-        
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
