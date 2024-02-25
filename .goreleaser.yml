@@ -19,9 +19,9 @@ builds:
       - windows
       - freebsd
     goarch:
-      - 386
-      - amd64
-      - arm64
+      - '386'
+      - 'amd64'
+      - 'arm64'
 changelog:
   filters:
     exclude:
@@ -29,13 +29,13 @@ changelog:
       - "^test:"
       - "^chore:"
 archives:
-  - name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
-    replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+  - name_template: >-
+      {{- .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end -}}
     format_overrides:
       - goos: windows
         format: zip
@@ -45,17 +45,17 @@ archives:
 release:
   prerelease: auto
 brews:
-  - tap:
+  - repository:
       owner: kemokemo
       name: homebrew-tap
     homepage: "https://github.com/kemokemo/miniweb"
     description: "Tiny web service to serve files."
     install: |
       bin.install "miniweb"
-scoop:
-  bucket:
-    owner: kemokemo
-    name: scoop-bucket
-  homepage: "https://github.com/kemokemo/miniweb"
-  description: "Tiny web service to serve files."
-  license: MIT
+scoops:
+  - repository:
+      owner: kemokemo
+      name: scoop-bucket
+    homepage: "https://github.com/kemokemo/miniweb"
+    description: "Tiny web service to serve files."
+    license: MIT
