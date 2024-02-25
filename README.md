@@ -1,6 +1,6 @@
 # miniweb
 
-[![Go Version](https://img.shields.io/github/go-mod/go-version/kemokemo/miniweb)](https://github.com/kemokemo/miniweb/blob/main/go.mod)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/kemokemo/miniweb)
 
 Tiny web service to serve files. :tada:
 
