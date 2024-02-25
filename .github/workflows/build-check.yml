@@ -16,11 +16,19 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: 1.22.0
-      - name: Install dependencies
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: latest
+
+      - name: go vet
         run: |
-          go version
-          GO111MODULE=off go get -u golang.org/x/lint/golint
-      - name: Lint and check
+          go vet -v ./...
+
+      - name: go test
         run: |
-          golint ./...
-          go vet ./...
+          go test -v ./...
+
+      - name: Build
+        run: go build . && rm miniweb
